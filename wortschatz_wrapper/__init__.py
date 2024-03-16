@@ -34,7 +34,7 @@ class dictionary_reader():
             lines = f.read().splitlines()
             word_lines = [line.split('\t') for line in lines]            
             # remove words whose letters are not in the english alphabet
-            word_lines = [line for line in word_lines if line[1].isalpha() and len(line) ==3]
+            word_lines = [line for line in word_lines if len(line) ==3 and line[1].isalpha() ]
             _, words_list, words_count = [list(i) for i in zip(*word_lines)]
             # order of words by frequency
             words, counts = zip(*sorted(zip(words_list, words_count), key=lambda x: int(x[1]), reverse=True))
