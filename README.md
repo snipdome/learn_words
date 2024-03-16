@@ -29,5 +29,5 @@ Contributions are welcome! If you have any suggestions, bug reports, or feature 
 This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details.
 
 ## Acknowledgements
-- [wortschatz.uni-leipzig.de](https://wortschatz.uni-leipzig.de/en/download) for providing the vocabulary lists.
+- [wortschatz.uni-leipzig.de](https://wortschatz.uni-leipzig.de/en/download) for providing vocabulary lists.
 

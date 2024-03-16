@@ -116,8 +116,8 @@ def main_loop(database_path, dictionary_words, dictionary_sentences=None, n_word
                             keep_asking_info = False
                         else:
                             word_position = df.index[df['Word'] == word].tolist()
-                            if len(word_position) != 1:
-                                print(colored(f'Warning: No word found or found more than one word with the same name {word}.', 'red'))
+                            # if len(word_position) != 1:
+                            #     print(colored(f'Warning: No word found or found more than one word with the same name {word}.', 'red'))
                             if len(word_position) == 0:
                                 word_position = len(df)
                                 df.at[word_position, 'Word'] = word
@@ -161,8 +161,8 @@ def main_loop(database_path, dictionary_words, dictionary_sentences=None, n_word
                             keep_asking_info = False
                         else:
                             word_position = df.index[df['Word'] == word].tolist()
-                            if len(word_position) > 0:
-                                print(colored(f'Warning: found more than one word with the same name {word}.', 'red'))
+                            # if len(word_position) > 0:
+                            #     print(colored(f'Warning: found more than one word with the same name {word}.', 'red'))
                             if len(word_position) == 0:
                                 word_position = len(df)
                                 df.at[word_position, 'Word'] = word
@@ -213,8 +213,8 @@ def main_loop(database_path, dictionary_words, dictionary_sentences=None, n_word
                                 df.at[word_position, worddict.value[4:]] = new_value
                             elif len(word_position) == 1:
                                 df.at[word_position[0], worddict.value[4:]] = new_value
-                            else:
-                                print(colored(f'Warning: found more than one word with the same name {word}.', 'red'))
+                            # else:
+                            #     print(colored(f'Warning: found more than one word with the same name {word}.', 'red'))
         else:
             print('Invalid input. Please try again.')
             continue
