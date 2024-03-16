@@ -34,12 +34,13 @@ def main_loop(database_path, dictionary_words, dictionary_sentences=None, n_word
     if not os.path.exists(database_path):
         print(f'Created new database at {database_path}')
         df = pd.DataFrame({'Word': '', 'Prec. article': '', 'Type': '', 'Meaning': '', 'Verb forms': '', 'Comments': '', 'Example': ''}, index=[0])
-        # set all columns to string type
-        df = df.astype(str)
-
     else:
         print(f'Using existing database at {database_path}')
         df = pd.read_excel(database_path)
+    df = df.astype(str)
+    # As it got converted to string, now it may have nan values. Replace them with empty strings
+    df = df.replace('nan', '')
+
 
     new_words = list(set(dictionary_words) - set(df['Word']))
     saved_words = list(df['Word'])
