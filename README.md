@@ -20,7 +20,7 @@ If the downloaded vocabulary list has a "sentences" file, the program will also 
 
 2. Run the `learn_mylanguage.py` command
 
-3. Follow the on-screen instructions. The Escape+Enter key can be used to exit from loops.
+3. Follow the on-screen instructions. The Enter key can be used to exit from loops. By pressing first Esc and then Enter, the program will go back to the outer loops.
 
 ## Contributing
 Contributions are welcome! If you have any suggestions, bug reports, or feature requests, please open an issue or submit a pull request.
