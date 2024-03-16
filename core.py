@@ -30,6 +30,7 @@ def get_sentence(word, sentences, result, index, randomize_sentences=False):
                 return
 
 def main_loop(database_path, dictionary_words, dictionary_sentences=None, n_words_per_cycle=6):
+    pd.set_option('display.max_colwidth', None)
 
     if not os.path.exists(database_path):
         print(f'Created new database at {database_path}')
@@ -65,6 +66,7 @@ def main_loop(database_path, dictionary_words, dictionary_sentences=None, n_word
         VERB_FORMS = '[4] Verb forms'
         COMMENTS = '[5] Comments'
         EXAMPLE = '[6] Example'
+        SHOW_ALL = '[0] Show all'
 
     def get_worddict(x):
         for y in WordDict:
@@ -99,13 +101,11 @@ def main_loop(database_path, dictionary_words, dictionary_sentences=None, n_word
                 while keep_asking_info:
                     print(f'What do you know about ', colored(word, 'green'), ' ?')
                     for field in WordDict: print(field.value)
-                    choice = input()
                     if dictionary_sentences is not None and not displayed_sentence:
                         # join the thread
                         threads[i].join()
                         print('Here is an example: ', colored(example_sentences[i], 'green'))
                         displayed_sentence = True
-                    for field in WordDict: print(field.value)
                     choice = input()
                     if choice == '\x1b':
                         keep_asking_words = keep_asking_info = False
@@ -113,20 +113,25 @@ def main_loop(database_path, dictionary_words, dictionary_sentences=None, n_word
                         keep_asking_info = False
                     else:
                         worddict = get_worddict(choice)
-                        print(f'What do you know about ', colored(word, 'green'), ' regarding ', colored(worddict.value, 'green'), ' ?')
-                        new_value = input()
-                        if new_value == '\x1b' or new_value == '':
-                            keep_asking_info = False
+                        if worddict == WordDict.SHOW_ALL:
+                            found_word = df[df['Word'] == word]
+                            if not found_word.empty:
+                                print(found_word)
                         else:
-                            word_position = df.index[df['Word'] == word].tolist()
-                            # if len(word_position) != 1:
-                            #     print(colored(f'Warning: No word found or found more than one word with the same name {word}.', 'red'))
-                            if len(word_position) == 0:
-                                word_position = len(df)
-                                df.at[word_position, 'Word'] = word
-                                df.at[word_position, worddict.value[4:]] = new_value
-                            elif len(word_position) == 1:
-                                df.at[word_position[0], worddict.value[4:]] = new_value
+                            print(f'What do you know about ', colored(word, 'green'), ' regarding ', colored(worddict.value, 'green'), ' ?')
+                            new_value = input()
+                            if new_value == '\x1b' or new_value == '':
+                                keep_asking_info = False
+                            else:
+                                word_position = df.index[df['Word'] == word].tolist()
+                                # if len(word_position) != 1:
+                                #     print(colored(f'Warning: No word found or found more than one word with the same name {word}.', 'red'))
+                                if len(word_position) == 0:
+                                    word_position = len(df)
+                                    df.at[word_position, 'Word'] = word
+                                    df.at[word_position, worddict.value[4:]] = new_value
+                                elif len(word_position) == 1:
+                                    df.at[word_position[0], worddict.value[4:]] = new_value
             # close the threads
             if dictionary_sentences is not None:
                 for thread in threads: thread.join()
@@ -203,21 +208,26 @@ def main_loop(database_path, dictionary_words, dictionary_sentences=None, n_word
                         keep_asking_info = False
                     else:
                         worddict = get_worddict(choice)
-                        print(f'What do you know about ', colored(word, 'green'), ' regarding ', colored(worddict.value, 'green'), ' ?')
-                        new_value = input()
-                        if new_value == '\x1b' or new_value == '':
-                            keep_asking_info = False
+                        if worddict == WordDict.SHOW_ALL:
+                            found_word = df[df['Word'] == word]
+                            if not found_word.empty:
+                                print(found_word)
                         else:
-                            # Find the word in the database, and update the corresponding existing field, or create a new field
-                            word_position = df.index[df['Word'] == word].tolist()
-                            if len(word_position) == 0:
-                                word_position = len(df)
-                                df.at[word_position, 'Word'] = word
-                                df.at[word_position, worddict.value[4:]] = new_value
-                            elif len(word_position) == 1:
-                                df.at[word_position[0], worddict.value[4:]] = new_value
-                            # else:
-                            #     print(colored(f'Warning: found more than one word with the same name {word}.', 'red'))
+                            print(f'What do you know about ', colored(word, 'green'), ' regarding ', colored(worddict.value, 'green'), ' ?')
+                            new_value = input()
+                            if new_value == '\x1b' or new_value == '':
+                                keep_asking_info = False
+                            else:
+                                # Find the word in the database, and update the corresponding existing field, or create a new field
+                                word_position = df.index[df['Word'] == word].tolist()
+                                if len(word_position) == 0:
+                                    word_position = len(df)
+                                    df.at[word_position, 'Word'] = word
+                                    df.at[word_position, worddict.value[4:]] = new_value
+                                elif len(word_position) == 1:
+                                    df.at[word_position[0], worddict.value[4:]] = new_value
+                                # else:
+                                #     print(colored(f'Warning: found more than one word with the same name {word}.', 'red'))
         else:
             print('Invalid input. Please try again.')
             continue
