@@ -1,7 +1,7 @@
 # learn_words
 
 ## Description
-`learn_words` is a command-line tool designed to help you learn new words in any language. By using a vocabulary list, as the one provided by wortschatz.uni-leipzig.de, you can practice and memorize new words in an interactive way.
+`learn_words` is a command-line tool designed to help you learn new words in any language. By using a vocabulary list, as the ones provided by wortschatz.uni-leipzig.de, you can practice and memorize new words in an interactive way.
 
 The program is written in Python. It saves the words to which you have been exposed, given that you have provided any input, for example its translation or any other information as type of word and gender.
 
@@ -10,7 +10,7 @@ If the downloaded vocabulary list has a "sentences" file, the program will also 
 ## Usage
 1. Download the repository:
     ```shell
-    git clone
+    git clone git@github.com:snipdome/learn_words.git
     ```
 
 2. Download the vocabulary list from [ wortschatz.uni-leipzig.de:](https://wortschatz.uni-leipzig.de/en/download)
