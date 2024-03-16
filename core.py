@@ -97,7 +97,9 @@ def main_loop(database_path, dictionary_words, dictionary_sentences=None, n_word
                 keep_asking_info = True
                 displayed_sentence = False
                 while keep_asking_info:
-                    choice = input( f'What do you know about ', colored(word, 'green'), ' ?')
+                    print(f'What do you know about ', colored(word, 'green'), ' ?')
+                    for field in WordDict: print(field.value)
+                    choice = input()
                     if dictionary_sentences is not None and not displayed_sentence:
                         # join the thread
                         threads[i].join()
